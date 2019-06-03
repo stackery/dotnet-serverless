@@ -15,6 +15,3 @@ provider:
 package:
   artifact: bin/release/netcoreapp2.1/deploy-package.zip
 functions:
-  Function:
-    handler: StackeryFunction::src::Function.Handler::handler
-    environment: {}
