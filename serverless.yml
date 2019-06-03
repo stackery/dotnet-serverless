@@ -14,3 +14,33 @@ provider:
       Resource: '*'
 package:
   artifact: bin/release/netcoreapp2.1/deploy-package.zip
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-cf-vars
+functions:
+  Function:
+    handler: StackeryFunction::StackeryFunction.Handler::handler
+    description: !Sub
+      - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
+      - ResourceName: Function
+    runtime: dotnetcore2.1
+    tracing: Active
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+          - xray:GetSamplingRules
+          - xray:GetSamplingTargets
+          - xray:GetSamplingStatisticSummaries
+        Resource: '*'
+resources:
+  Parameters:
+    StackTagName:
+      Type: String
+      Description: Stack Name (injected by Stackery at deployment time)
+      Default: dotnet-serverless
+    EnvironmentTagName:
+      Type: String
+      Description: Environment Name (injected by Stackery at deployment time)
+      Default: dev
