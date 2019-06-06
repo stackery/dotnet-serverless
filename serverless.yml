@@ -3,6 +3,9 @@ frameworkVersion: '>=1.6.0 <2.1.0'
 provider:
   name: aws
   runtime: dotnetcore2.1
+  plugins:
+    - serverless-iam-roles-per-function
+    - serverless-cf-vars
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -12,11 +15,6 @@ provider:
         - xray:GetSamplingTargets
         - xray:GetSamplingStatisticSummaries
       Resource: '*'
-package:
-  artifact: bin/release/netcoreapp2.1/deploy-package.zip
-plugins:
-  - serverless-iam-roles-per-function
-  - serverless-cf-vars
 functions:
   Function:
     handler: StackeryFunction::StackeryFunction.Handler::handler
