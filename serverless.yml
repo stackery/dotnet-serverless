@@ -1,5 +1,4 @@
 service: dotnet-serverless
-frameworkVersion: '>=1.6.0 <2.1.0'
 provider:
   name: aws
   runtime: dotnetcore2.1
@@ -18,9 +17,10 @@ provider:
 functions:
   Function:
     handler: StackeryFunction::StackeryFunction.Handler::handler
-    description: !Sub
-      - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
-      - ResourceName: Function
+    description:
+      Fn::Sub:
+        - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
+        - ResourceName: Function
     runtime: dotnetcore2.1
     tracing: Active
     iamRoleStatements:
