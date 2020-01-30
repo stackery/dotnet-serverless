@@ -2,7 +2,7 @@ service: dotnet-serverless
 provider:
   name: aws
   runtime: dotnetcore2.1
-  cfLogs: true
+  versionFunctions: false
   plugins:
     - serverless-iam-roles-per-function
     - serverless-cf-vars
